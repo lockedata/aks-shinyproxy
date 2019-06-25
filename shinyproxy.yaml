@@ -1,0 +1,72 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: shinyproxy-auth
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: shinyproxy
+spec:
+  selector:
+    run: shinyproxy
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+ 
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shinyproxy
+spec:
+  selector:
+    matchLabels:
+      run: shinyproxy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: shinyproxy
+    spec:
+      containers:
+      - name: shinyproxy
+        image: <ACR>/shinyproxy
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+      - name: kube-proxy-sidecar
+        image: <ACR>/kube-proxy-sidecar
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8001
+ 
+---
+
+apiVersion: apps/v1
+kind: Ingress
+metadata:
+  name: shinyproxy
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: shinyproxy.<CLUSTER_SPECIFIC_DNS_ZONE>
+    http:
+      paths:
+      - backend:
+          serviceName: shinyproxy
+          servicePort: 80
+        path: /
