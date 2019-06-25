@@ -9,6 +9,7 @@ az group create --name $AKS_RESOURCE_GROUP --location $LOCATION
 version=$(az aks get-versions -l uksouth --query 'orchestrators[-1].orchestratorVersion' -o tsv)
 az aks create --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --location $LOCATION --enable-addons monitoring --kubernetes-version $version
 az aks get-credentials --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME
+az aks enable-addons --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --addons http_application_routing
 
 # CREATE ACR
 az acr create --resource-group $ACR_RESOURCE_GROUP --name $ACR_NAME --location $LOCATION --sku Basic
