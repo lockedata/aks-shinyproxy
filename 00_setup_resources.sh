@@ -7,7 +7,6 @@ LOCATION=uksouth
 az group create --name $AKS_RESOURCE_GROUP --location $LOCATION
 # CREATE AKS
 version=$(az aks get-versions -l uksouth --query 'orchestrators[-1].orchestratorVersion' -o tsv)
-az group create --name akschallenge --location $LOCATION
 az aks create --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME --location $LOCATION --enable-addons monitoring --kubernetes-version $version
 az aks get-credentials --resource-group $AKS_RESOURCE_GROUP --name $AKS_CLUSTER_NAME
 
