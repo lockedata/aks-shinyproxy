@@ -4,6 +4,7 @@ ACR_RESOURCE_GROUP=shinyproxydemo
 ACR_NAME=shinyproxydemo
 LOCATION=uksouth
 
+az group create --name $AKS_RESOURCE_GROUP --location $LOCATION
 # CREATE AKS
 version=$(az aks get-versions -l uksouth --query 'orchestrators[-1].orchestratorVersion' -o tsv)
 az group create --name akschallenge --location $LOCATION
