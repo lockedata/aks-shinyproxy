@@ -43,13 +43,13 @@ spec:
     spec:
       containers:
       - name: shinyproxy
-        image: <ACR>/shinyproxy
-        imagePullPolicy: Never
+        image: <ACR.azurecr.io>/shinyproxy
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
       - name: kube-proxy-sidecar
-        image: <ACR>/kube-proxy-sidecar
-        imagePullPolicy: Never
+        image: <ACR.azurecr.io>/kube-proxy-sidecar
+        imagePullPolicy: Always
         ports:
         - containerPort: 8001
  
