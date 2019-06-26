@@ -68,5 +68,5 @@ spec:
       paths:
       - backend:
           serviceName: shinyproxy
-          servicePort: 80
+          servicePort: 8080
         path: /
