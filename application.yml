@@ -23,7 +23,7 @@ proxy:
     container-cmd: ["R", "-e", "shinyproxy::run_06_tabsets()"]
     container-image: openanalytics/shinyproxy-demo
   - id: hello_world
-    container-image: <ACR.azurecr.io>/shinyproxy-demo
+    container-image: <ACR.azurecr.io>/shinyapp
 
 logging:
   file:
