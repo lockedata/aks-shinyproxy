@@ -13,6 +13,7 @@ proxy:
   kubernetes:
     internal-networking: true
     url: http://localhost:8001
+    image-pull-secret: acr-auth
   specs:
   - id: 01_hello
     display-name: Hello Application
