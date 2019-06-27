@@ -13,6 +13,7 @@ proxy:
   kubernetes:
     internal-networking: true
     url: http://localhost:8001
+    image-pull-secret: acr-auth
   specs:
   - id: 01_hello
     display-name: Hello Application
@@ -22,6 +23,8 @@ proxy:
   - id: 06_tabsets
     container-cmd: ["R", "-e", "shinyproxy::run_06_tabsets()"]
     container-image: openanalytics/shinyproxy-demo
+  - id: hello_world
+    container-image: <ACR.azurecr.io>/shinyapp
 
 logging:
   file:
